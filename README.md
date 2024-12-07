@@ -77,7 +77,7 @@ app.listen(port, () => {
 
 | Call    | Description |
 | ------- | --------    |
-| di(namespace, ...dependencies) | `namespace` - the namespace to add dependencies into <br><br> `dependencies` - depedency descriptors <br><br> `{dependency}` - object <br> - name: 'identifier' <br> - func: (...) => ... // return instance, func can pass already setup depedencies  <br> - singleton: true/false |
+| di(namespace, ...dependencies) | `namespace` - the namespace to add dependencies into <br><br> `dependencies` - depedency descriptors <br><br> `{dependency}` - object <br> - name: 'identifier' <br> - func: (...) => ... ` return instance, func can pass already setup depedencies`  <br> - singleton: true/false |
 |ioc(namespace, obj, funcName)| `namespace` - the namespace to pull the dependencies from <br><br> `obj` - the object owning the function to take control over <br><br> `funcName` - the name of the function to take control over |
 
 
