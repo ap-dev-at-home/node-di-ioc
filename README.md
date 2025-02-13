@@ -1,19 +1,16 @@
 # node-di-ioc
 
-A small evaluation library to find out on dependency injection and inversion of control on top of node.js/expressjs.
-
-**Current Status**: In Development/Trial Phase - final behaviour not determined yet
+A draft on how to implement asp.net core like dependency injection and inversion of control in node.js
 
 ```javascript
-// node.js/expressjs test application
-const express = require('express');
-const console = require('console');
-const { di, ioc } = require('./lib/di-ioc/di-ioc');
+// setup.js
+const { di } = require('./lib/di-ioc/di-ioc');
 
-const app = express();
-const port = 3000;
 const IOC_NAMESPACE_PROD = 'PROD';
 const IOC_NAMESPACE_TEST = 'TEST';
+
+module.exports.IOC_NAMESPACE_PROD = IOC_NAMESPACE_PROD;
+module.exports.IOC_NAMESPACE_TEST = IOC_NAMESPACE_TEST;
 
 // Register dependencies
 // every call to di with different namespaces can setup dependencies for different environments/modules
@@ -47,6 +44,18 @@ di(IOC_NAMESPACE_PROD,
         }
     }
 );
+```
+
+```javascript 
+// app.js
+const express = require('express');
+const console = require('console');
+const { ioc } = require('./lib/di-ioc/di-ioc');
+const { IOC_NAMESPACE_PROD, IOC_NAMESPACE_TEST } = require('./setup')
+
+// node.js/expressjs test application
+const app = express();
+const port = 3000;
 
 // Inversion of Control
 // handover control to the node-di-ioc library
@@ -79,5 +88,3 @@ app.listen(port, () => {
 | ------- | --------    |
 | di(namespace, ...dependencies) | `namespace` - the namespace to add dependencies into <br><br> `dependencies` - depedency descriptors <br><br> `{dependency}` - object <br> - name: 'identifier' <br> - func: (...) => ... ` return instance, func can pass already setup depedencies`  <br> - singleton: true/false |
 |ioc(namespace, obj, funcName)| `namespace` - the namespace to pull the dependencies from <br><br> `obj` - an object owning the function to take control over <br><br> `funcName` - the name of the function to take control over |
-
-
